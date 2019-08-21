@@ -8,7 +8,6 @@ COPY ./package-lock.json package-lock.json
 RUN npm install
 
 COPY ./.env .env
-COPY ./nodemon.json nodemon.json
 COPY ./app ./app
 
 EXPOSE 3001

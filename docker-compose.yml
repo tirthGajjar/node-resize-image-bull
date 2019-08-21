@@ -4,8 +4,46 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: image-server
+    environment:
+      - REDIS_URL=redis://redis-instance
+      - PORT=3001
     ports:
       - 3001:3001
     volumes:
       - .:/app
-    command: npm run dev
+    depends_on:
+      - redis
+    command: npm run server-dev
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile    
+    container_name: image-worker
+    environment:
+        - NODE_ENV=development
+        - PORT=3000
+        - REDIS_URL=redis://my-cache
+    volumes:
+        - .:/app
+    depends_on:
+        - redis
+    command: npm run worker-dev
+
+  redis:
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    container_name: redis-instance
+    ports:
+      - '6379:6379'
+  
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=administrator
+      - POSTGRES_DB=imagedb
