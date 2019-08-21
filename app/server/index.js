@@ -1,12 +1,14 @@
 require('dotenv').config();
 
+const { bindMiddleware } = require('./middleware');
+const { bindRoutes } = require('./routes');
+
 const express = require('express');
-const bodyParser = require('body-parser');
 const app = express();
 
-app.use(bodyParser.json({limit: '50mb'}));
-app.use('/', (req, res) => res.status(200).json({ message: "ok" }));
+bindRoutes(app);
+bindMiddleware(app);
 
 module.exports = {
-  app
-}
+  app,
+};
