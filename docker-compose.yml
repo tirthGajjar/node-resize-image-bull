@@ -24,12 +24,27 @@ services:
     environment:
         - NODE_ENV=development
         - PORT=3000
-        - REDIS_URL=redis://my-cache
+        - REDIS_URL=redis://redis-instance
     volumes:
         - .:/app
     depends_on:
         - redis
     command: npm run worker-dev
+  
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile    
+    container_name: test-container
+    environment:
+        - NODE_ENV=development
+        - PORT=3000
+        - REDIS_URL=redis://redis-instance
+    volumes:
+        - .:/app
+    depends_on:
+        - redis
+    command: npm t
 
   redis:
     image: 'bitnami/redis:latest'
@@ -38,12 +53,3 @@ services:
     container_name: redis-instance
     ports:
       - '6379:6379'
-  
-  db:
-    image: postgres
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=administrator
-      - POSTGRES_DB=imagedb
