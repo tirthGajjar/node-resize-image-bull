@@ -1,9 +1,13 @@
 const fs = require('fs').promises;
 const request = require('supertest');
-const { CONFIG } = require('../server/config');
+const { CONFIG } = require('../common/config');
 const { expect } = require('chai');
 
-async function cleanup() {
+async function cleanup(queue) {
+  if (queue) {
+    await queue.empty();
+  }
+
   const files = await fs.readdir(CONFIG.RAW_FILE_LOCATION);
 
   for (const file of files) {
@@ -16,7 +20,7 @@ function getImage(app, imageId) {
 }
 
 function getTestImagePath() {
-  return `${process.cwd()}/app/test/fixtures/arch.png`;
+  return `${process.cwd()}/app/common/fixtures/arch.png`;
 }
 
 function postImage(app, testCallback) {
@@ -39,5 +43,5 @@ module.exports = {
   getImage,
   getTestImagePath,
   postImage,
-  validateStructure
+  validateStructure,
 };

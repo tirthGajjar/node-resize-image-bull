@@ -6,8 +6,8 @@ const { bindRoutes } = require('./routes');
 const express = require('express');
 const app = express();
 
-bindRoutes(app);
 bindMiddleware(app);
+bindRoutes(app);
 
 module.exports = {
   app,

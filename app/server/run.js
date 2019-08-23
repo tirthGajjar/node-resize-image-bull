@@ -1,6 +1,7 @@
 const { app } = require('./index');
 const { PORT } = process.env;
+const { logger } = require('../common/logger');
 
 app.listen(PORT, () => {
-  console.log('Listening on ' + PORT);
+  logger.info('Listening on ' + PORT);
 });

@@ -4,16 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server-dev": "nodemon --ext 'js' --watch './app/server/**/*' --exec 'node ./app/server/run.js' ",
-    "worker-dev": "nodemon --ext 'js' --watch './app/worker/**/*' --exec 'node ./app/worker/run.js' ",
-    "test": "nodemon --ext 'js' --watch './app/test/**/*.js' --exec 'mocha ./app/test/**/*.js' "
+    "server-dev": "nodemon --ext 'js' --watch './app/**/*' --exec 'node ./app/server/run.js' ",
+    "worker-dev": "nodemon --ext 'js' --watch './app/**/*' --exec 'node ./app/worker/run.js' ",
+    "test": "nodemon --ext 'js' --watch './app/**/*.spec.js' --exec 'mocha ./app/**/*.spec.js' ",
+    "format": "prettier --write './app/**/*.js'",
+    "lint": "eslint -c ./eslintrc.json './app/**/*.js'"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
     "bull": "^3.10.0",
-    "chai": "^4.2.0",
+    "chalk": "^2.4.2",
     "express": "^4.17.1",
     "ioredis": "^4.14.0",
     "morgan": "^1.9.1",
@@ -22,10 +24,16 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-spies": "^1.0.0",
     "dotenv": "^8.1.0",
+    "eslint": "^6.2.1",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
     "image-size": "^0.7.4",
     "mocha": "^6.2.0",
     "nodemon": "^1.19.1",
+    "prettier": "^1.18.2",
     "supertest": "^4.0.2"
   }
 }

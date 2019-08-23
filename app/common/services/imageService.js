@@ -34,16 +34,15 @@ async function resizeImage(fileBuffer) {
 }
 
 /**
- * 
+ *
  */
 
- async function getImageMetaData(imageLocation) {
-   const fileBuffer = await readFileFromLocation(imageLocation)
-   return sharp(imageLocation).metadata();
- }
+async function getImageMetaData(imageLocation) {
+  return sharp(imageLocation).metadata();
+}
 
 /**
- * 
+ *
  */
 async function resizeAndSaveImage(file) {
   if (!file.path || !file.id) {
@@ -52,12 +51,13 @@ async function resizeAndSaveImage(file) {
 
   const fileBuffer = await readFileFromLocation(file.path);
   const resizedBuffer = await resizeImage(fileBuffer);
-  const savedImage = await saveImageToPermanentLocation(file.id, resizedBuffer)
+  const savedImage = await saveImageToPermanentLocation(file.id, resizedBuffer);
 
   return savedImage;
 }
 
 module.exports = {
+  readFileFromLocation,
   getImageMetaData,
-  resizeAndSaveImage
-}
+  resizeAndSaveImage,
+};

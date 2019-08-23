@@ -44,7 +44,9 @@ services:
         - .:/app
     depends_on:
         - redis
-    command: npm t
+    entrypoint: ["echo", "Test container disabled"]
+    # Enable to run tests
+    # command: npm t
 
   redis:
     image: 'bitnami/redis:latest'

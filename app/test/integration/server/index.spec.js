@@ -3,10 +3,9 @@ const request = require('supertest');
 const assert = require('assert');
 
 const { app } = require('../../../server');
-const { CONFIG } = require('../../../server/config');
+const { CONFIG } = require('../../../common/config');
 
 const { expect } = require('chai');
-
 
 const {
   cleanup,
@@ -34,7 +33,7 @@ describe('Upload Image', () => {
     cleanup().then(() => done());
   });
 
-  after(done => {
+  afterEach(done => {
     cleanup().then(() => done());
   });
 
